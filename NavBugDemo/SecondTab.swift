@@ -10,14 +10,15 @@ import Combine
 
 struct SecondTab: View {
 	@EnvironmentObject private var tabViewVM: TabViewViewModel
-	@State private var path: [String] = []
+//	@State private var path: [String] = []
 
 	var body: some View {
-		NavigationStack(path: $path) {
+//		NavigationStack(path: $path) {
+		NavigationStack(path: Binding(get: { tabViewVM.navState.secondTabPath }, set: { tabViewVM.navState.secondTabPath = $0 })) {
 			Text("Second Tab")
-				.onChange(of: tabViewVM.needToGoToWeather, perform: { _ in
-					path.append("weather")
-				})
+//				.onChange(of: tabViewVM.needToGoToWeather, perform: { _ in
+//					path.append("weather")
+//				})
 				.navigationTitle("Second")
 				.navigationDestination(for: String.self) { _ in
 					Label("Weather", systemImage: "sun.max")

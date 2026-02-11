@@ -12,8 +12,10 @@ struct FirstTab: View {
 	@EnvironmentObject private var tabViewVM: TabViewViewModel
 	var body: some View {
 		Button("Go Weather") {
-			tabViewVM.selectedTab = 1
-			tabViewVM.needToGoToWeather.toggle()
+//			tabViewVM.selectedTab = 1
+//			tabViewVM.needToGoToWeather.toggle()
+			let state = NavigationState(selectedTab: 1, secondTabPath: ["weather"])
+			tabViewVM.navState = state
 		}
 	}
 }
