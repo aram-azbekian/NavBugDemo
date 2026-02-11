@@ -9,24 +9,19 @@ import SwiftUI
 import Combine
 
 struct SecondTab: View {
-	@StateObject private var router = SecondTabRouter()
 	@EnvironmentObject private var tabViewVM: TabViewViewModel
+	@State private var path: [String] = []
+
 	var body: some View {
-		NavigationStack(path: $router.path) {
+		NavigationStack(path: $path) {
 			Text("Second Tab")
 				.onChange(of: tabViewVM.needToGoToWeather, perform: { _ in
-					router.path.append(.weather)
+					path.append("weather")
 				})
 				.navigationTitle("Second")
-
-				.navigationDestination(for: SecondTabRoute.self) { route in
-					SecondTabScreen(route: route)
+				.navigationDestination(for: String.self) { _ in
+					Label("Weather", systemImage: "sun.max")
 				}
 		}
-		.environmentObject(router)
 	}
-}
-
-final class SecondTabRouter: ObservableObject {
-	@Published var path: [SecondTabRoute] = []
 }
